@@ -240,3 +240,12 @@ PASSWORD_RESET_TIMEOUT = 3600  # 1 hour in seconds
 
 # Frontend URLs (for password reset and email verification)
 FRONTEND_URL = config('FRONTEND_URL', default='http://localhost:3000')
+
+# Gemini API Key (for Google Gemini integration)
+GEMINI_API_KEY = config('GEMINI_API_KEY', default=None)
+
+# Azure OpenAI Configuration
+AZURE_OPENAI_API_KEY = config('AZURE_OPENAI_API_KEY', default=None)
+AZURE_OPENAI_ENDPOINT = config('AZURE_OPENAI_ENDPOINT', default=None)
+AZURE_OPENAI_DEPLOYMENT = config('AZURE_OPENAI_DEPLOYMENT', default=None)
+AZURE_OPENAI_API_VERSION = config('AZURE_OPENAI_API_VERSION', default='2024-02-15-preview')
