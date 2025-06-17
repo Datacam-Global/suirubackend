@@ -1,0 +1,2 @@
+# This file ensures the media directory exists in git
+# Media files will be ignored by .gitignore
