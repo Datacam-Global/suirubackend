@@ -3,6 +3,7 @@ from .models import (
     Alert, Report, ContentAnalysis, GeographicData,
     PlatformAnalytics, ChatMessage, UserSettings, FacebookPost
 )
+from .suspicious_report_models import SuspiciousContentReport
 
 @admin.register(Alert)
 class AlertAdmin(admin.ModelAdmin):
@@ -89,3 +90,9 @@ class FacebookPostAdmin(admin.ModelAdmin):
             'classes': ('collapse',)
         }),
     )
+
+@admin.register(SuspiciousContentReport)
+class SuspiciousContentReportAdmin(admin.ModelAdmin):
+    list_display = ('platform', 'url', 'category', 'reporter_email', 'date_reported')
+    search_fields = ('platform', 'url', 'category', 'reporter_email', 'description')
+    list_filter = ('platform', 'category', 'date_reported')

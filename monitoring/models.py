@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from .suspicious_report_models import SuspiciousContentReport
 
 # Add unique constraint to User model's email field
 User._meta.get_field('email')._unique = True
