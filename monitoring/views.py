@@ -20,6 +20,8 @@ from .serializers import (
     PlatformAnalyticsSerializer, ChatMessageSerializer,
     UserSettingsSerializer, FacebookPostSerializer, FacebookAPIResponseSerializer
 )
+import google.generativeai as genai
+import openai
 
 # Create your views here.
 
@@ -72,7 +74,7 @@ def save_post_to_database(post_data):
         attached_image_content=post_data.get('attached_image_content', ''),
         attached_medias_id=post_data.get('attached_medias_id', []),
         attached_medias_preview_url=post_data.get('attached_medias_preview_url', []),
-        attached_medias_preview_url_s3=post_data.get('attached_medias_preview_url_s3', []),
+        attached_medias_preview_url_s3=post_data.get('attached_medias_preview_url_s3', ''),
         attached_medias_preview_content=post_data.get('attached_medias_preview_content', []),
         attached_post_id=post_data.get('attached_post_id', ''),
         attached_video_preview_url=post_data.get('attached_video_preview_url', ''),
@@ -669,3 +671,103 @@ def fetch_facebook_data_from_api(post_id=None, limit=5):
             return posts_data
         else:
             return random.sample(posts_data, limit)
+
+@api_view(['POST'])
+@permission_classes([permissions.AllowAny])
+def gemini_ask(request):
+    """
+    Send a question to Google Gemini and return the response.
+    Gemini is strictly instructed to only answer with information related to Cameroon.
+    If the question is not about Cameroon, Gemini will politely refuse to answer.
+    
+    Instructions for Gemini:
+    - Only provide information, facts, or context that is directly related to Cameroon (its people, history, geography, politics, culture, economy, news, etc.).
+    - If the question is not about Cameroon, respond with a polite refusal such as: "Sorry, I can only answer questions related to Cameroon."
+    - If the question is ambiguous, ask the user to clarify how it relates to Cameroon.
+    - Never provide information about other countries, regions, or topics unless it is directly connected to Cameroon.
+    - Always keep answers concise, factual, and relevant to Cameroon.
+    
+    Parameters:
+    - question: string (required)
+    Returns:
+    - 200: Gemini response
+    - 400: Invalid input or Gemini error
+    """
+    question = request.data.get('question')
+    if not question:
+        return Response({'error': 'No question provided'}, status=status.HTTP_400_BAD_REQUEST)
+
+    api_key = getattr(settings, 'GEMINI_API_KEY', None)
+    if not api_key:
+        return Response({'error': 'Gemini API key not configured'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    try:
+        genai.configure(api_key=api_key)
+        # Use a supported Gemini model for text generation
+        # 'gemini-1.5-pro-latest' is generally available for text tasks
+        model = genai.GenerativeModel('gemini-1.5-pro-latest')
+        cameroon_instruction = (
+            "You are an assistant that only provides information related to Cameroon. "
+            "If the question is not about Cameroon, politely refuse to answer. "
+            "If the question is ambiguous, ask the user to clarify how it relates to Cameroon. "
+            "Never provide information about other countries, regions, or topics unless it is directly connected to Cameroon. "
+            "Always keep answers concise, factual, and relevant to Cameroon."
+        )
+        full_prompt = f"{cameroon_instruction}\n\nUser question: {question}"
+        response = model.generate_content(full_prompt)
+        answer = response.text if hasattr(response, 'text') else str(response)
+        return Response({'question': question, 'answer': answer}, status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+@permission_classes([permissions.AllowAny])
+def azure_openai_ask(request):
+    """
+    Send a question to Azure OpenAI and return the response.
+    Only provides information related to Cameroon.
+    Parameters:
+    - question: string (required)
+    Returns:
+    - 200: Azure OpenAI response
+    - 400: Invalid input or OpenAI error
+    """
+    question = request.data.get('question')
+    if not question:
+        return Response({'error': 'No question provided'}, status=status.HTTP_400_BAD_REQUEST)
+
+    api_key = getattr(settings, 'AZURE_OPENAI_API_KEY', None)
+    endpoint = getattr(settings, 'AZURE_OPENAI_ENDPOINT', None)
+    deployment = getattr(settings, 'AZURE_OPENAI_DEPLOYMENT', None)
+    api_version = getattr(settings, 'AZURE_OPENAI_API_VERSION', '2024-02-15-preview')
+    if not api_key or not endpoint or not deployment:
+        return Response({'error': 'Azure OpenAI configuration missing'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    try:
+        # Use the new OpenAI v1 API for chat completions
+        client = openai.AzureOpenAI(
+            api_key=api_key,
+            api_version=api_version,
+            azure_endpoint=endpoint
+        )
+        system_prompt = (
+            "You are an assistant that only provides information related to Cameroon. "
+            "If the question is not about Cameroon, politely refuse to answer. "
+            "If the question is ambiguous, ask the user to clarify how it relates to Cameroon. "
+            "Never provide information about other countries, regions, or topics unless it is directly connected to Cameroon. "
+            "Always keep answers concise, factual, and relevant to Cameroon."
+        )
+        messages = [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": question}
+        ]
+        response = client.chat.completions.create(
+            model=deployment,
+            messages=messages,
+            temperature=0.7,
+            max_tokens=512
+        )
+        answer = response.choices[0].message.content
+        return Response({'question': question, 'answer': answer}, status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)

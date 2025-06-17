@@ -40,4 +40,8 @@ urlpatterns = [
     path('facebook/posts/', views.facebook_api_posts_list, name='facebook_api_posts_list'),
     path('facebook/saved-posts/', views.facebook_saved_posts, name='facebook_saved_posts'),
     path('facebook/clear-saved-posts/', views.facebook_clear_saved_posts, name='facebook_clear_saved_posts'),
+    # Gemini endpoint
+    path('gemini/ask/', views.gemini_ask, name='gemini_ask'),
+    # Azure OpenAI endpoint
+    path('azure-openai/ask/', views.azure_openai_ask, name='azure_openai_ask'),
 ]
