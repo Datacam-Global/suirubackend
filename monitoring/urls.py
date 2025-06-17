@@ -7,6 +7,7 @@ from .verification import (
     RequestPasswordResetView, ResetPasswordView,
     VerifyEmailView, resend_verification_email
 )
+from .suspicious_report_views import suspicious_content_report, suspicious_content_report_list
 
 router = DefaultRouter()
 router.register(r'users', views.UserViewSet)
@@ -44,4 +45,13 @@ urlpatterns = [
     path('gemini/ask/', views.gemini_ask, name='gemini_ask'),
     # Azure OpenAI endpoint
     path('azure-openai/ask/', views.azure_openai_ask, name='azure_openai_ask'),
+    # Hate Speech Analysis endpoint
+    path('hate-speech/analyze/', views.hate_speech_analyze, name='hate_speech_analyze'),
+    path('hate-speech/analyze-random-facebook-post/', views.hate_speech_analyze_random_facebook_post, name='hate_speech_analyze_random_facebook_post'),
+    # Misinformation Analysis endpoint
+    path('misinformation/analyze/', views.misinformation_analyze, name='misinformation_analyze'),
+    path('misinformation/analyze-random-facebook-post/', views.misinformation_analyze_random_facebook_post, name='misinformation_analyze_random_facebook_post'),
+    # Suspicious Content Report
+    path('reports/suspicious/', suspicious_content_report, name='suspicious_content_report'),
+    path('reports/suspicious/list/', suspicious_content_report_list, name='suspicious_content_report_list'),
 ]

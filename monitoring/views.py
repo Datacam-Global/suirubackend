@@ -22,6 +22,7 @@ from .serializers import (
 )
 import google.generativeai as genai
 import openai
+import requests
 
 # Create your views here.
 
@@ -771,3 +772,87 @@ def azure_openai_ask(request):
         return Response({'question': question, 'answer': answer}, status=status.HTTP_200_OK)
     except Exception as e:
         return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+@permission_classes([permissions.IsAuthenticated])
+def hate_speech_analyze(request):
+    """
+    Analyze text for hate speech using external FastAPI model.
+    Expects JSON: {"text": "..."}
+    Returns: FastAPI model response or error.
+    """
+    text = request.data.get("text")
+    if not text:
+        return Response({"error": "No text provided."}, status=status.HTTP_400_BAD_REQUEST)
+    try:
+        api_url = "https://model.sui-ru.com/hate-speech/analyze"
+        resp = requests.post(api_url, json={"text": text}, timeout=10)
+        resp.raise_for_status()
+        result = resp.json()
+    except requests.RequestException as e:
+        return Response({"error": "Model service unavailable.", "details": str(e)}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
+    return Response(result, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+@permission_classes([permissions.IsAuthenticated])
+def hate_speech_analyze_random_facebook_post(request):
+    """
+    Select a random Facebook post from facebook_data.json, send its text to the hate speech model, and return the result.
+    """
+    posts = load_facebook_data()
+    if not posts:
+        return Response({"error": "No Facebook data available."}, status=status.HTTP_404_NOT_FOUND)
+    post = random.choice(posts)
+    text = post.get("text", "")
+    if not text:
+        return Response({"error": "Selected post has no text."}, status=status.HTTP_400_BAD_REQUEST)
+    try:
+        api_url = "https://model.sui-ru.com/hate-speech/analyze"
+        resp = requests.post(api_url, json={"text": text}, timeout=10)
+        resp.raise_for_status()
+        result = resp.json()
+    except requests.RequestException as e:
+        return Response({"error": "Model service unavailable.", "details": str(e)}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
+    return Response({"post_id": post.get("id"), "text": text, "hate_speech_result": result}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+@permission_classes([permissions.IsAuthenticated])
+def misinformation_analyze(request):
+    """
+    Analyze text for misinformation using external FastAPI model.
+    Expects JSON: {"text": "..."}
+    Returns: FastAPI model response or error.
+    """
+    text = request.data.get("text")
+    if not text:
+        return Response({"error": "No text provided."}, status=status.HTTP_400_BAD_REQUEST)
+    try:
+        api_url = "https://model.sui-ru.com/misinformation/analyze"
+        resp = requests.post(api_url, json={"text": text}, timeout=10)
+        resp.raise_for_status()
+        result = resp.json()
+    except requests.RequestException as e:
+        return Response({"error": "Model service unavailable.", "details": str(e)}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
+    return Response(result, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+@permission_classes([permissions.IsAuthenticated])
+def misinformation_analyze_random_facebook_post(request):
+    """
+    Select a random Facebook post from facebook_data.json, send its text to the misinformation model, and return the result.
+    """
+    posts = load_facebook_data()
+    if not posts:
+        return Response({"error": "No Facebook data available."}, status=status.HTTP_404_NOT_FOUND)
+    post = random.choice(posts)
+    text = post.get("text", "")
+    if not text:
+        return Response({"error": "Selected post has no text."}, status=status.HTTP_400_BAD_REQUEST)
+    try:
+        api_url = "https://model.sui-ru.com/misinformation/analyze"
+        resp = requests.post(api_url, json={"text": text}, timeout=10)
+        resp.raise_for_status()
+        result = resp.json()
+    except requests.RequestException as e:
+        return Response({"error": "Model service unavailable.", "details": str(e)}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
+    return Response({"post_id": post.get("id"), "text": text, "misinformation_result": result}, status=status.HTTP_200_OK)
