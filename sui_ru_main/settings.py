@@ -120,7 +120,6 @@ if config('USE_SQLITE', default=False, cast=bool):
         }
     }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
@@ -213,7 +212,8 @@ SIMPLE_JWT = {
 
 # CORS settings
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # React development server
+    "http://localhost:3000", 
+    "https://sui-ru.com",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
