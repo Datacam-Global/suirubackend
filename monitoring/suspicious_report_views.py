@@ -8,7 +8,7 @@ from .suspicious_report_serializers import SuspiciousContentReportSerializer
 from .suspicious_report_models import SuspiciousContentReport
 
 @api_view(["POST"])
-@permission_classes([AllowAny])
+@permission_classes([])  # Explicitly allow any (no authentication)
 @parser_classes([MultiPartParser, FormParser, JSONParser])
 def suspicious_content_report(request):
     data = request.data.copy()
