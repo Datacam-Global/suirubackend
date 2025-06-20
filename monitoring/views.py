@@ -109,21 +109,68 @@ def save_post_to_database(post_data):
     # --- Send to model API for analysis ---
     try:
         from monitoring.model_client import analyze_hate, analyze_misinformation
+        from .models import ContentModelAnalysis, Alert
+        
         content = post_data.get('text', '')
         # Only send if content is not empty
         if content.strip():
-            hate_result = analyze_hate({
-                'id': post_id,
-                'text': content
-            })
-            misinformation_result = analyze_misinformation({
-                'id': post_id,
-                'text': content
-            })
-            # You can log, save, or process these results as needed
-            print(f"Analysis for post {post_id}:\n  Hate: {hate_result}\n  Misinformation: {misinformation_result}")
+            # Send content to hate speech analysis endpoint
+            hate_result = analyze_hate(content)
+            print(f"Analysis for post {post_id}:\n  Hate: {hate_result}")
+            
+            # Save hate speech analysis result
+            if 'error' not in hate_result:
+                # Create ContentModelAnalysis record for hate speech
+                hate_analysis = ContentModelAnalysis.objects.create(
+                    post=facebook_post,
+                    analysis_type='hate',
+                    is_harmful=hate_result.get('is_hate_speech', False),
+                    confidence=hate_result.get('confidence'),
+                    severity=hate_result.get('severity'),
+                    category=hate_result.get('category'),
+                    explanation=hate_result.get('explanation', ''),
+                    detected_keywords=hate_result.get('detected_keywords', []),
+                    raw_response=hate_result
+                )
+                
+                # If harmful content detected with high confidence, create an alert
+                if hate_analysis.is_harmful and hate_analysis.confidence and hate_analysis.confidence > 0.7:
+                    Alert.objects.create(
+                        title=f"Hate Speech Detected in Post {post_id}",
+                        description=f"Hate speech detected with {hate_analysis.confidence:.2f} confidence. Severity: {hate_analysis.severity}.",
+                        severity='high' if hate_analysis.severity == 'high' else 'medium',
+                        source='Model API - Hate Speech',
+                        status='new'
+                    )
+            
+            # Send content to misinformation analysis endpoint
+            misinformation_result = analyze_misinformation(content)
+            print(f"Analysis for post {post_id}:\n  Misinformation: {misinformation_result}")
+            
+            # Save misinformation analysis result
+            if 'error' not in misinformation_result:
+                # Create ContentModelAnalysis record for misinformation
+                misinfo_analysis = ContentModelAnalysis.objects.create(
+                    post=facebook_post,
+                    analysis_type='misinformation',
+                    is_harmful=misinformation_result.get('label') == 'misinformation',
+                    confidence=misinformation_result.get('confidence'),
+                    severity=misinformation_result.get('severity'),
+                    explanation=misinformation_result.get('explanation', ''),
+                    raw_response=misinformation_result
+                )
+                
+                # If misinformation detected with high confidence, create an alert
+                if misinfo_analysis.is_harmful and misinfo_analysis.confidence and misinfo_analysis.confidence > 0.7:
+                    Alert.objects.create(
+                        title=f"Misinformation Detected in Post {post_id}",
+                        description=f"Misinformation detected with {misinfo_analysis.confidence:.2f} confidence. Severity: {misinfo_analysis.severity}.",
+                        severity='high' if misinfo_analysis.severity == 'high' else 'medium',
+                        source='Model API - Misinformation',
+                        status='new'
+                    )
     except Exception as e:
-        print(f"Error sending post {post_id} to model API: {e}")
+        print(f"Error processing model analysis for post {post_id}: {e}")
 
     return facebook_post
 

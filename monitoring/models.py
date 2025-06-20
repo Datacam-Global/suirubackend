@@ -159,3 +159,28 @@ class FacebookPost(models.Model):
     def __str__(self):
         return f"{self.owner_username} - {self.post_id}"
 
+class ContentModelAnalysis(models.Model):
+    """
+    Model to store content analysis results from the model API
+    """
+    post = models.ForeignKey(FacebookPost, on_delete=models.CASCADE, related_name='model_analyses')
+    analysis_type = models.CharField(max_length=50)  # 'hate', 'misinformation', etc.
+    is_harmful = models.BooleanField(default=False)  # true if detected as hate or misinformation
+    confidence = models.FloatField(null=True)
+    severity = models.CharField(max_length=20, null=True)  # 'low', 'medium', 'high'
+    category = models.CharField(max_length=100, null=True, blank=True)
+    explanation = models.TextField(blank=True)
+    detected_keywords = models.JSONField(default=list, blank=True)
+    raw_response = models.JSONField()  # Store the complete response
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        ordering = ['-created_at']
+        indexes = [
+            models.Index(fields=['analysis_type']),
+            models.Index(fields=['is_harmful']),
+        ]
+    
+    def __str__(self):
+        return f"{self.analysis_type} analysis for post {self.post.post_id}"
+
