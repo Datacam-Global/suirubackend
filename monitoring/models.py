@@ -1,9 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
-from .suspicious_report_models import SuspiciousContentReport
 
-# Add unique constraint to User model's email field
 User._meta.get_field('email')._unique = True
 
 class Alert(models.Model):
@@ -160,3 +158,4 @@ class FacebookPost(models.Model):
     
     def __str__(self):
         return f"{self.owner_username} - {self.post_id}"
+
