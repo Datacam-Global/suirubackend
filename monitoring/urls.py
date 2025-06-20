@@ -7,7 +7,13 @@ from .verification import (
     RequestPasswordResetView, ResetPasswordView,
     VerifyEmailView, resend_verification_email
 )
-from .suspicious_report_views import suspicious_content_report, suspicious_content_report_list
+from reportsuspeciouscontent.views import suspicious_content_report, suspicious_content_report_list
+
+# Suspicious Content Report Endpoints (placed before router)
+urlpatterns = [
+    path('reports/suspecious/', suspicious_content_report, name='suspicious_content_report'),
+    path('reports/suspecious/list/', suspicious_content_report_list, name='suspicious_content_report_list'),
+]
 
 router = DefaultRouter()
 router.register(r'users', views.UserViewSet)
@@ -20,7 +26,7 @@ router.register(r'chat-messages', views.ChatMessageViewSet)
 router.register(r'user-settings', views.UserSettingsViewSet)
 router.register(r'facebook-posts', views.FacebookPostViewSet)
 
-urlpatterns = [
+urlpatterns += [
     path('', include(router.urls)),
     
     # Authentication URLs
@@ -51,7 +57,4 @@ urlpatterns = [
     # Misinformation Analysis endpoint
     path('misinformation/analyze/', views.misinformation_analyze, name='misinformation_analyze'),
     path('misinformation/analyze-random-facebook-post/', views.misinformation_analyze_random_facebook_post, name='misinformation_analyze_random_facebook_post'),
-    # Suspicious Content Report
-    path('reports/suspicious/', suspicious_content_report, name='suspicious_content_report'),
-    path('reports/suspicious/list/', suspicious_content_report_list, name='suspicious_content_report_list'),
 ]
