@@ -51,13 +51,14 @@ def save_post_to_database(post_data):
     """
     Save a Facebook post to the database
     This simulates the behavior when receiving data from Data365 API
+    After saving, send relevant fields to the model API for analysis.
     """
     post_id = post_data.get('id')
-    
+
     # Check if post already exists
     if FacebookPost.objects.filter(post_id=post_id).exists():
         return FacebookPost.objects.get(post_id=post_id)
-    
+
     # Create new post
     facebook_post = FacebookPost.objects.create(
         post_id=post_data.get('id', ''),
@@ -104,7 +105,26 @@ def save_post_to_database(post_data):
         tagged_location_id=post_data.get('tagged_location_id', ''),
         post_location_id=post_data.get('post_location_id', ''),
     )
-    
+
+    # --- Send to model API for analysis ---
+    try:
+        from monitoring.model_client import analyze_hate, analyze_misinformation
+        content = post_data.get('text', '')
+        # Only send if content is not empty
+        if content.strip():
+            hate_result = analyze_hate({
+                'id': post_id,
+                'text': content
+            })
+            misinformation_result = analyze_misinformation({
+                'id': post_id,
+                'text': content
+            })
+            # You can log, save, or process these results as needed
+            print(f"Analysis for post {post_id}:\n  Hate: {hate_result}\n  Misinformation: {misinformation_result}")
+    except Exception as e:
+        print(f"Error sending post {post_id} to model API: {e}")
+
     return facebook_post
 
 class UserViewSet(viewsets.ModelViewSet):
