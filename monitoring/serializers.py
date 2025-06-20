@@ -4,7 +4,7 @@ from .models import (
     Alert, Report, ContentAnalysis, GeographicData,
     PlatformAnalytics, ChatMessage, UserSettings, FacebookPost
 )
-from .suspicious_report_serializers import SuspiciousContentReportSerializer
+from reportsuspeciouscontent.models import SuspiciousContentReport
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=True)
