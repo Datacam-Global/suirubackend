@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import (
     Alert, Report, ContentAnalysis, GeographicData,
-    PlatformAnalytics, ChatMessage, UserSettings, FacebookPost
+    PlatformAnalytics, ChatMessage, UserSettings, FacebookPost,RegisteredPlatform
 )
 
 
@@ -92,3 +92,9 @@ class FacebookPostAdmin(admin.ModelAdmin):
     )
 
 
+
+@admin.register(RegisteredPlatform)
+class RegisteredPlatformAdmin(admin.ModelAdmin):
+    list_display = ('name', 'display_name', 'created_at')
+    list_filter = ('created_at',)
+    search_fields = ('name', 'display_name')

@@ -75,7 +75,7 @@ class GeographicData(models.Model):
         return f"{self.location_name} - {self.data_type}"
 
 class PlatformAnalytics(models.Model):
-    platform_name = models.CharField(max_length=100)
+    platform_name = models.CharField(max_length=100, unique=True)  
     metrics = models.JSONField()
     timestamp = models.DateTimeField(auto_now_add=True)
     period = models.CharField(max_length=20)  # daily, weekly, monthly
@@ -150,6 +150,7 @@ class FacebookPost(models.Model):
     recommends = models.BooleanField(default=False)
     tagged_location_id = models.CharField(max_length=50, blank=True)
     post_location_id = models.CharField(max_length=50, blank=True)
+    platform = models.CharField(max_length=50, default='facebook')  
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
@@ -183,4 +184,13 @@ class ContentModelAnalysis(models.Model):
     
     def __str__(self):
         return f"{self.analysis_type} analysis for post {self.post.post_id}"
+
+class RegisteredPlatform(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    display_name = models.CharField(max_length=100, blank=True)
+    description = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.display_name or self.name
 
