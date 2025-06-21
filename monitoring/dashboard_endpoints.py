@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from django.utils import timezone
 from django.db.models import Avg
-from monitoring.models import FacebookPost, Alert, ContentModelAnalysis, PlatformAnalytics
+from monitoring.models import FacebookPost, Alert, ContentAnalysis, RegisteredPlatform
 
 class DashboardKPIView(APIView):
     permission_classes = [IsAuthenticated]
@@ -11,9 +11,11 @@ class DashboardKPIView(APIView):
     def get(self, request):
         total_content = FacebookPost.objects.count()
         active_threats = Alert.objects.filter(status__in=['new', 'in_progress']).count()
-        accuracy_qs = ContentModelAnalysis.objects.exclude(confidence=None)
-        accuracy = round(accuracy_qs.aggregate(Avg('confidence'))['confidence__avg'] or 0, 2)
-        platforms = PlatformAnalytics.objects.values('platform_name').distinct().count()
+        # Use ContentAnalysis.confidence_score for accuracy, convert to percentage
+        accuracy_qs = ContentAnalysis.objects.exclude(confidence_score=None)
+        accuracy = accuracy_qs.aggregate(Avg('confidence_score'))['confidence_score__avg']
+        accuracy = round((accuracy or 0) * 100, 2)
+        platforms = RegisteredPlatform.objects.count()
         last_post = FacebookPost.objects.order_by('-updated_at').first()
         last_alert = Alert.objects.order_by('-updated_at').first()
         last_update = None
