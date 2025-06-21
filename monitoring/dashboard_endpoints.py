@@ -204,3 +204,70 @@ class PlatformBreakdownView(APIView):
                 'color': color
             })
         return Response(results)
+
+class RecentAlertsView(APIView):
+    """
+    API endpoint that returns a list of the most recent alerts detected by the system.
+
+    Query Parameters:
+    - limit (int, optional): Number of results to return. Default is 10.
+    - severity (string, optional): Filter by severity (e.g., 'critical', 'high', 'medium').
+    - platform (string, optional): Filter by platform name (e.g., 'Facebook').
+    - region (string, optional): Filter by region (e.g., 'Douala, Cameroon').
+
+    Example:
+        GET /api/dashboard/recent-alerts?limit=10&severity=critical&platform=Facebook&region=Douala
+
+    Response:
+        [
+          {
+            "id": 1,
+            "type": "misinformation",
+            "severity": "critical",
+            "title": "False Election Information Spreading",
+            "platform": "Facebook",
+            "location": "Douala, Cameroon",
+            "time": "2025-06-21T10:15:00Z",
+            "engagement": 1250,
+            "status": "active"
+          },
+          ...
+        ]
+    """
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        from monitoring.models import Alert
+        limit = int(request.GET.get('limit', 10))
+        severity = request.GET.get('severity')
+        platform = request.GET.get('platform')
+        region = request.GET.get('region')
+        q = Alert.objects.all()
+        if severity:
+            q = q.filter(severity__iexact=severity)
+        if platform:
+            q = q.filter(source__iexact=platform)
+        if region:
+            q = q.filter(location__icontains=region)
+        q = q.order_by('-created_at')[:limit]
+        # Map status to frontend-friendly values
+        status_map = {
+            'new': 'active',
+            'in_progress': 'investigating',
+            'resolved': 'resolved',
+            'closed': 'resolved',
+        }
+        results = []
+        for alert in q:
+            results.append({
+                'id': alert.id,
+                'type': getattr(alert, 'alert_type', 'threat'),  # fallback if alert_type not present
+                'severity': alert.severity,
+                'title': alert.title,
+                'platform': alert.source,
+                'location': alert.location,
+                'time': alert.created_at.isoformat(),
+                'engagement': getattr(alert, 'engagement', 0),  # fallback if engagement not present
+                'status': status_map.get(alert.status, alert.status)
+            })
+        return Response(results)
