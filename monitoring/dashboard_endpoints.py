@@ -2,10 +2,31 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from django.utils import timezone
-from django.db.models import Avg
-from monitoring.models import FacebookPost, Alert, ContentAnalysis, RegisteredPlatform
+from django.db.models import Avg, Q, Count
+from datetime import timedelta
+from monitoring.models import FacebookPost, Alert, ContentAnalysis, RegisteredPlatform, ContentModelAnalysis
 
 class DashboardKPIView(APIView):
+    """
+    API endpoint that returns dashboard KPI metrics for the monitored system.
+
+    Returns:
+        JSON object with the following fields:
+        - totalContent (int): Total content items monitored (from FacebookPost).
+        - activeThreats (int): Number of currently active threats (Alert with status 'new' or 'in_progress').
+        - accuracy (float): Detection accuracy as a percentage (average confidence_score from ContentAnalysis).
+        - platforms (int): Number of registered platforms (from RegisteredPlatform).
+        - lastUpdate (string): ISO timestamp of the most recent update (from FacebookPost or Alert).
+
+    Example:
+        {
+          "totalContent": 2480000,
+          "activeThreats": 23,
+          "accuracy": 94.2,
+          "platforms": 5,
+          "lastUpdate": "2025-06-21T10:00:00Z"
+        }
+    """
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
@@ -34,3 +55,94 @@ class DashboardKPIView(APIView):
             "platforms": platforms,
             "lastUpdate": last_update.isoformat()
         })
+
+class ThreatTrendsView(APIView):
+    """
+    API endpoint that returns time-series data for threats, misinformation, and hate speech.
+    
+    Query Parameters:
+    - timeframe (string, optional): Range of data (e.g., '24h', '7d', '30d'). Default is '7d'.
+    - interval (string, optional): Granularity of data points ('hour' or 'day'). Default is 'day'.
+    - platform (string, optional): Filter by platform name (e.g., 'Facebook').
+    - region (string, optional): Filter by region (e.g., 'Centre Region').
+    
+    Example:
+        GET /api/dashboard/threat-trends?timeframe=7d&interval=day&platform=Facebook&region=Centre
+    
+    Response:
+        [
+          {
+            "time": "2025-06-15",
+            "threats": 15,
+            "misinformation": 8,
+            "hate_speech": 7
+          },
+          ...
+        ]
+    """
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        # Parse query params
+        timeframe = request.GET.get('timeframe', '7d')
+        interval = request.GET.get('interval', 'day')
+        platform = request.GET.get('platform')
+        region = request.GET.get('region')
+
+        # Determine time range
+        now = timezone.now()
+        if timeframe.endswith('h'):
+            hours = int(timeframe[:-1])
+            start_time = now - timedelta(hours=hours)
+        else:
+            days = int(timeframe[:-1]) if timeframe.endswith('d') else 7
+            start_time = now - timedelta(days=days)
+
+        # Choose time format
+        if interval == 'hour':
+            time_format = '%Y-%m-%dT%H:00:00Z'
+            delta = timedelta(hours=1)
+        else:
+            time_format = '%Y-%m-%d'
+            delta = timedelta(days=1)
+
+        # Prepare time buckets
+        buckets = []
+        t = start_time.replace(minute=0, second=0, microsecond=0)
+        while t < now:
+            buckets.append(t)
+            t += delta
+
+        # Helper for filtering by platform/region
+        def alert_filter():
+            q = Q(created_at__gte=start_time, created_at__lt=now)
+            if platform:
+                q &= Q(source__iexact=platform)
+            if region:
+                q &= Q(location__icontains=region)
+            return q
+        def analysis_filter(atype):
+            q = Q(created_at__gte=start_time, created_at__lt=now, analysis_type=atype)
+            if platform:
+                q &= Q(post__platform__iexact=platform)
+            return q
+
+        # Query all relevant data in range
+        alerts = Alert.objects.filter(alert_filter())
+        misinfo = ContentModelAnalysis.objects.filter(analysis_filter('misinformation'))
+        hate = ContentModelAnalysis.objects.filter(analysis_filter('hate'))
+
+        # Build time-bucketed results
+        results = []
+        for b in buckets:
+            next_b = b + delta
+            threats_count = alerts.filter(created_at__gte=b, created_at__lt=next_b).count()
+            misinfo_count = misinfo.filter(created_at__gte=b, created_at__lt=next_b).count()
+            hate_count = hate.filter(created_at__gte=b, created_at__lt=next_b).count()
+            results.append({
+                'time': b.strftime(time_format),
+                'threats': threats_count,
+                'misinformation': misinfo_count,
+                'hate_speech': hate_count
+            })
+        return Response(results)
