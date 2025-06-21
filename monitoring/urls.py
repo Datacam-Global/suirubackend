@@ -9,11 +9,6 @@ from .verification import (
 )
 from reportsuspeciouscontent.views import suspicious_content_report, suspicious_content_report_list
 
-# Suspicious Content Report Endpoints (placed before router)
-urlpatterns = [
-    path('reports/suspecious/', suspicious_content_report, name='suspicious_content_report'),
-    path('reports/suspecious/list/', suspicious_content_report_list, name='suspicious_content_report_list'),
-]
 
 router = DefaultRouter()
 router.register(r'users', views.UserViewSet)
@@ -25,8 +20,9 @@ router.register(r'platform-analytics', views.PlatformAnalyticsViewSet)
 router.register(r'chat-messages', views.ChatMessageViewSet)
 router.register(r'user-settings', views.UserSettingsViewSet)
 router.register(r'facebook-posts', views.FacebookPostViewSet)
+router.register(r'model-analysis', views.ContentModelAnalysisViewSet)
 
-urlpatterns += [
+urlpatterns = [
     path('', include(router.urls)),
     
     # Authentication URLs
@@ -57,4 +53,11 @@ urlpatterns += [
     # Misinformation Analysis endpoint
     path('misinformation/analyze/', views.misinformation_analyze, name='misinformation_analyze'),
     path('misinformation/analyze-random-facebook-post/', views.misinformation_analyze_random_facebook_post, name='misinformation_analyze_random_facebook_post'),
+    
+    # Content Model Analysis endpoints
+    path('model-analysis/by-post/<str:post_id>/', views.get_analysis_by_post, name='get_analysis_by_post'),
+    path('model-analysis/harmful-content/', views.get_harmful_content, name='get_harmful_content'),
+
+    # path('reports/suspecious/', suspicious_content_report, name='suspicious_content_report'),
+    # path('reports/suspecious/list/', suspicious_content_report_list, name='suspicious_content_report_list'),
 ]

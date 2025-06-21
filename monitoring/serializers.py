@@ -2,7 +2,8 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from .models import (
     Alert, Report, ContentAnalysis, GeographicData,
-    PlatformAnalytics, ChatMessage, UserSettings, FacebookPost
+    PlatformAnalytics, ChatMessage, UserSettings, FacebookPost,
+    ContentModelAnalysis
 )
 from reportsuspeciouscontent.models import SuspiciousContentReport
 
@@ -86,3 +87,34 @@ class FacebookAPIResponseSerializer(serializers.Serializer):
     data = FacebookPostSerializer()
     error = serializers.CharField(allow_null=True, default=None)
     status = serializers.CharField(default="ok")
+
+class ContentModelAnalysisSerializer(serializers.ModelSerializer):
+    """
+    Serializer for the ContentModelAnalysis model
+    """
+    post_id = serializers.CharField(source='post.post_id', read_only=True)
+    post_text = serializers.CharField(source='post.text', read_only=True)
+    
+    class Meta:
+        model = ContentModelAnalysis
+        fields = (
+            'id', 'post', 'post_id', 'post_text', 'analysis_type', 
+            'is_harmful', 'confidence', 'severity', 'category',
+            'explanation', 'detected_keywords', 'raw_response', 
+            'created_at'
+        )
+        read_only_fields = ('id', 'created_at')
+
+class ContentModelAnalysisSummarySerializer(serializers.ModelSerializer):
+    """
+    Simplified serializer for ContentModelAnalysis model (for list views)
+    """
+    post_id = serializers.CharField(source='post.post_id', read_only=True)
+    
+    class Meta:
+        model = ContentModelAnalysis
+        fields = (
+            'id', 'post_id', 'analysis_type', 'is_harmful', 
+            'confidence', 'severity', 'created_at'
+        )
+        read_only_fields = ('id', 'created_at')
