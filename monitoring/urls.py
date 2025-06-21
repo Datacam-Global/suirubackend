@@ -7,7 +7,7 @@ from .verification import (
     RequestPasswordResetView, ResetPasswordView,
     VerifyEmailView, resend_verification_email
 )
-from reportsuspeciouscontent.views import suspicious_content_report, suspicious_content_report_list
+from .dashboard_endpoints import DashboardKPIView
 
 
 router = DefaultRouter()
@@ -58,6 +58,6 @@ urlpatterns = [
     path('model-analysis/by-post/<str:post_id>/', views.get_analysis_by_post, name='get_analysis_by_post'),
     path('model-analysis/harmful-content/', views.get_harmful_content, name='get_harmful_content'),
 
-    # path('reports/suspecious/', suspicious_content_report, name='suspicious_content_report'),
-    # path('reports/suspecious/list/', suspicious_content_report_list, name='suspicious_content_report_list'),
+    # Dashboard KPIs
+    path('dashboard/kpis', DashboardKPIView.as_view(), name='dashboard_kpis'),
 ]
