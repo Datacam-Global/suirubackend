@@ -7,7 +7,7 @@ from .verification import (
     RequestPasswordResetView, ResetPasswordView,
     VerifyEmailView, resend_verification_email
 )
-from .dashboard_endpoints import DashboardKPIView, ThreatTrendsView
+from .dashboard_endpoints import DashboardKPIView, ThreatTrendsView, PlatformBreakdownView
 
 
 router = DefaultRouter()
@@ -61,4 +61,5 @@ urlpatterns = [
     # Dashboard KPIs
     path('dashboard/kpis', DashboardKPIView.as_view(), name='dashboard_kpis'),
     path('dashboard/threat-trends', ThreatTrendsView.as_view(), name='dashboard_threat_trends'),
+    path('dashboard/platform-breakdown', PlatformBreakdownView.as_view(), name='dashboard_platform_breakdown'),
 ]

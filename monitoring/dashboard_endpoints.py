@@ -146,3 +146,61 @@ class ThreatTrendsView(APIView):
                 'hate_speech': hate_count
             })
         return Response(results)
+
+class PlatformBreakdownView(APIView):
+    """
+    API endpoint that returns the number of threats detected per social media platform.
+
+    Query Parameters:
+    - timeframe (string, optional): Range of data (e.g., '24h', '7d', '30d'). Default is '7d'.
+    - region (string, optional): Filter by region (e.g., 'Centre Region').
+
+    Example:
+        GET /api/dashboard/platform-breakdown?timeframe=7d&region=Centre
+
+    Response:
+        [
+          { "name": "Facebook", "threats": 35, "color": "#1877F2" },
+          { "name": "X (Twitter)", "threats": 28, "color": "#000000" },
+          ...
+        ]
+    """
+    permission_classes = [IsAuthenticated]
+
+    PLATFORM_COLORS = {
+        'facebook': '#1877F2',
+        'x': '#000000',
+        'twitter': '#000000',
+        'tiktok': '#FE2C55',
+        'instagram': '#E4405F',
+        'reddit': '#FF4500',
+    }
+
+    def get(self, request):
+        from django.utils import timezone
+        from datetime import timedelta
+        from monitoring.models import Alert, RegisteredPlatform
+        timeframe = request.GET.get('timeframe', '7d')
+        region = request.GET.get('region')
+        now = timezone.now()
+        if timeframe.endswith('h'):
+            hours = int(timeframe[:-1])
+            start_time = now - timedelta(hours=hours)
+        else:
+            days = int(timeframe[:-1]) if timeframe.endswith('d') else 7
+            start_time = now - timedelta(days=days)
+        # Get all registered platforms
+        platforms = RegisteredPlatform.objects.all()
+        results = []
+        for platform in platforms:
+            q = Alert.objects.filter(source__iexact=platform.name, created_at__gte=start_time, created_at__lt=now)
+            if region:
+                q = q.filter(location__icontains=region)
+            count = q.count()
+            color = self.PLATFORM_COLORS.get(platform.name.lower(), None)
+            results.append({
+                'name': platform.display_name or platform.name,
+                'threats': count,
+                'color': color
+            })
+        return Response(results)
