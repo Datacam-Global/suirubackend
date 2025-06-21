@@ -12,13 +12,15 @@ from django.conf import settings
 from .data365_config import USE_JSON_DATA_SOURCE, JSON_DATA_FILE
 from .models import (
     Alert, Report, ContentAnalysis, GeographicData,
-    PlatformAnalytics, ChatMessage, UserSettings, FacebookPost
+    PlatformAnalytics, ChatMessage, UserSettings, FacebookPost,
+    ContentModelAnalysis
 )
 from .serializers import (
     UserSerializer, AlertSerializer, ReportSerializer,
     ContentAnalysisSerializer, GeographicDataSerializer,
     PlatformAnalyticsSerializer, ChatMessageSerializer,
-    UserSettingsSerializer, FacebookPostSerializer, FacebookAPIResponseSerializer
+    UserSettingsSerializer, FacebookPostSerializer, FacebookAPIResponseSerializer,
+    ContentModelAnalysisSerializer, ContentModelAnalysisSummarySerializer
 )
 import google.generativeai as genai
 import openai
@@ -923,3 +925,94 @@ def misinformation_analyze_random_facebook_post(request):
     except requests.RequestException as e:
         return Response({"error": "Model service unavailable.", "details": str(e)}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
     return Response({"post_id": post.get("id"), "text": text, "misinformation_result": result}, status=status.HTTP_200_OK)
+
+class ContentModelAnalysisViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint for content model analysis results.
+    """
+    queryset = ContentModelAnalysis.objects.all().order_by('-created_at')
+    serializer_class = ContentModelAnalysisSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return ContentModelAnalysisSummarySerializer
+        return ContentModelAnalysisSerializer
+    
+    @action(detail=False, methods=['get'])
+    def harmful_content(self, request):
+        """
+        Filter analysis results to show only harmful content
+        """
+        harmful = self.queryset.filter(is_harmful=True).order_by('-confidence')
+        serializer = ContentModelAnalysisSummarySerializer(harmful, many=True)
+        return Response(serializer.data)
+    
+    @action(detail=False, methods=['get'])
+    def by_type(self, request):
+        """
+        Filter analysis results by type (hate or misinformation)
+        """
+        analysis_type = request.query_params.get('type')
+        if not analysis_type:
+            return Response({"error": "Please provide an analysis type"}, status=status.HTTP_400_BAD_REQUEST)
+        
+        results = self.queryset.filter(analysis_type=analysis_type).order_by('-created_at')
+        serializer = ContentModelAnalysisSummarySerializer(results, many=True)
+        return Response(serializer.data)
+    
+    @action(detail=False, methods=['get'])
+    def recent(self, request):
+        """
+        Get recent analysis results (last 24 hours)
+        """
+        yesterday = datetime.now() - timedelta(days=1)
+        recent = self.queryset.filter(created_at__gte=yesterday).order_by('-created_at')
+        serializer = ContentModelAnalysisSummarySerializer(recent, many=True)
+        return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+def get_analysis_by_post(request, post_id):
+    """
+    Get all analysis results for a specific post
+    """
+    post = get_object_or_404(FacebookPost, post_id=post_id)
+    analyses = ContentModelAnalysis.objects.filter(post=post).order_by('-created_at')
+    serializer = ContentModelAnalysisSerializer(analyses, many=True)
+    
+    # Also include the post data
+    post_serializer = FacebookPostSerializer(post)
+    
+    return Response({
+        "post": post_serializer.data,
+        "analyses": serializer.data
+    })
+
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+def get_harmful_content(request):
+    """
+    Get posts that have been flagged as harmful by the model
+    Combines the post data with the analysis results
+    """
+    # Get analysis results with high confidence of harmful content
+    threshold = float(request.query_params.get('threshold', 0.7))
+    analyses = ContentModelAnalysis.objects.filter(
+        is_harmful=True, 
+        confidence__gte=threshold
+    ).select_related('post').order_by('-confidence')
+    
+    # Organize by post to avoid duplicates
+    post_map = {}
+    for analysis in analyses:
+        if analysis.post.post_id not in post_map:
+            post_map[analysis.post.post_id] = {
+                "post": FacebookPostSerializer(analysis.post).data,
+                "analyses": []
+            }
+        post_map[analysis.post.post_id]["analyses"].append(
+            ContentModelAnalysisSerializer(analysis).data
+        )
+    
+    return Response(list(post_map.values()))

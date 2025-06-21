@@ -13,7 +13,7 @@ from drf_yasg.utils import swagger_auto_schema
 
 @swagger_auto_schema(method='post', request_body=SuspiciousContentReportSerializer, responses={201: 'Report submitted successfully', 400: 'Invalid data'})
 @api_view(["POST"])
-@permission_classes([AllowAny])  # Explicitly allow any (no authentication)
+@permission_classes([AllowAny])  
 @parser_classes([MultiPartParser, FormParser, JSONParser])
 def suspicious_content_report(request):
     data = request.data.copy()
@@ -36,7 +36,7 @@ def suspicious_content_report(request):
 
 @swagger_auto_schema(method='get', responses={200: SuspiciousContentReportSerializer(many=True)})
 @api_view(["GET"])
-@permission_classes([IsAdminUser])  # Only allow admin users to view reports
+@permission_classes([IsAdminUser])  
 def suspicious_content_report_list(request):
     reports = SuspiciousContentReport.objects.all().order_by('-date_reported')
     serializer = SuspiciousContentReportSerializer(reports, many=True)
