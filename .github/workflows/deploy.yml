@@ -19,14 +19,13 @@ jobs:
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H 84.247.168.4 >> ~/.ssh/known_hosts
 
-      - name: Deploy
+      - name: Deploy to VPS
         run: |
-          ssh -i ~/.ssh/id_ed25519 nyuydinebill@84.247.168.4 << 'EOF'
-            cd ~/suirubackend
-            git pull origin main
-            source venv/bin/activate
-            pip install -r requirements.txt
-            python manage.py migrate
-            python manage.py collectstatic --noinput
-            sudo systemctl restart gunicorn
-          EOF
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_ed25519 nyuydinebill@84.247.168.4 "\
+          cd ~/suirubackend && \
+          git pull origin main && \
+          source venv/bin/activate && \
+          pip install -r requirements.txt && \
+          python manage.py migrate && \
+          python manage.py collectstatic --noinput && \
+          sudo systemctl restart gunicorn"
