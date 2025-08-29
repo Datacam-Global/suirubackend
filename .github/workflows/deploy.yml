@@ -21,7 +21,7 @@ jobs:
 
       - name: Deploy
         run: |
-          ssh -i ~/.ssh/id_ed25519 nyuydinebill@84.247.168.4"
+          ssh -i ~/.ssh/id_ed25519 nyuydinebill@84.247.168.4 "
             cd ~/suirubackend &&
             git pull origin main &&
             source venv/bin/activate &&
