@@ -10,3 +10,28 @@ class SuspiciousContentReportSerializer(serializers.Serializer):
     description = serializers.CharField(required=True)
     evidence = serializers.FileField(required=False, allow_null=True)
     date_reported = serializers.DateTimeField(read_only=True)
+
+
+
+class AnalysisSerializer(serializers.Serializer):
+    """This is takes a text and send to the fastapi for analysis"""
+    ANALYSIS_CHOICES = [
+        ('hate_speech', 'Hate Speech Only'),
+        ('misinformation', 'Misinformation Only'),
+    ]
+
+    text = serializers.CharField(required=True, allow_blank=False)
+    analysis_type = serializers.ChoiceField(
+        choices=ANALYSIS_CHOICES,
+        default='hate_speech',
+        required=False,
+        help_text="Select the type of analysis to perform"
+    )
+
+    def validate_text(self, value):
+        """Additional validation for text field"""
+        if len(value.strip()) == 0:
+            raise serializers.ValidationError("Text cannot be empty or only whitespace")
+        return value.strip()
+
+

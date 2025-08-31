@@ -75,7 +75,7 @@ WSGI_APPLICATION = "sui_ru_main.wsgi.application"
 
 DATABASE_URL = config(
     'DATABASE_URL',
-    default="postgresql://suiru_user:ly6xjsz926NKIqDw5aYb1lkg3eUIkcrH@dpg-d18jrr8gjchc73979g10-a.oregon-postgres.render.com/suiru"
+    default="postgresql://nyuydinebill:3UKQ16m1lgxib6O4LazVHp@84.247.168.4:5432/suirudb"
 )
 
 # Parse the database URL
