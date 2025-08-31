@@ -1,4 +1,4 @@
-# This management command will analyze all media posts in the database using the model endpoints
+# This management commands will analyze all media posts in the database using the model endpoints
 # and print/save the results. This is a good place for batch or scheduled analysis.
 
 from django.core.management.base import BaseCommand
