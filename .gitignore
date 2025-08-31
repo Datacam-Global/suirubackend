@@ -2,28 +2,51 @@ venv
 .env
 .env.backup
 env
+# Python cache files - comprehensive coverage
 __pycache__/
 *.py[cod]
-*.sqlite3
-*.log
-*.pot
 *.pyc
 *.pyo
 *.pyd
-db.sqlite3
-.DS_Store
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
 *.egg-info/
+.installed.cfg
 *.egg
+MANIFEST
+
+# Django specific
+*.sqlite3
+*.log
+*.pot
+db.sqlite3
+
+# System files
+.DS_Store
 *.bak
 *.swp
+*.orig
+*.sublime-workspace
+*.sublime-project
+
+# IDE and editor files
 .idea/
 .vscode/
 .mypy_cache/
 .coverage
 htmlcov/
-dist/
-build/
-*.orig
-*.sublime-workspace
-*.sublime-project
+
+# Node modules
 node_modules/
