@@ -792,8 +792,6 @@ def gemini_ask(request):
 
 @api_view(['POST'])
 @permission_classes([permissions.AllowAny])
-<<<<<<< HEAD
-=======
 def openai_ask(request):
     """
     Send a question to OpenAI GPT and return the response.
@@ -842,7 +840,6 @@ def openai_ask(request):
 
 @api_view(['POST'])
 @permission_classes([permissions.AllowAny])
->>>>>>> 148abe60e728cf500040bff29109b59623c02540
 def azure_openai_ask(request):
     """
     Send a question to Azure OpenAI and return the response.
