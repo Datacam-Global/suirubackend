@@ -1,0 +1,1052 @@
+[
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 1,
+    "fields": {
+      "reporter_name": "Alice Johnson",
+      "reporter_email": "alice.johnson@email.com",
+      "content_type": "misinformation",
+      "platform": "facebook",
+      "url": "https://facebook.com/posts/fake-vaccine-news-123456",
+      "urgency_level": "high",
+      "description": "Post spreading false information about vaccines causing autism. Has been shared over 1000 times.",
+      "evidence": null,
+      "date_reported": "2025-08-29T10:00:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 2,
+    "fields": {
+      "reporter_name": "Bob Martinez",
+      "reporter_email": "bob.martinez@email.com",
+      "content_type": "hatespeech",
+      "platform": "twitter",
+      "url": "https://twitter.com/user/status/789012345",
+      "urgency_level": "critical",
+      "description": "Tweet containing racial slurs and threats against minority communities.",
+      "evidence": null,
+      "date_reported": "2025-08-31T07:00:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 3,
+    "fields": {
+      "reporter_name": "Carol Williams",
+      "reporter_email": "carol.w@email.com",
+      "content_type": "harassment",
+      "platform": "tiktok",
+      "url": "https://tiktok.com/@user/video/567890123",
+      "urgency_level": "medium",
+      "description": "Video targeting a specific individual with cyberbullying and encouraging others to harass them.",
+      "evidence": null,
+      "date_reported": "2025-08-30T05:00:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 4,
+    "fields": {
+      "reporter_name": null,
+      "reporter_email": "anonymous@protonmail.com",
+      "content_type": "spam",
+      "platform": "whatsapp",
+      "url": "https://chat.whatsapp.com/fake-lottery-group",
+      "urgency_level": "low",
+      "description": "WhatsApp group sending repeated fake lottery winning messages asking for personal information.",
+      "evidence": null,
+      "date_reported": "2025-08-28T10:00:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 5,
+    "fields": {
+      "reporter_name": "David Chen",
+      "reporter_email": "david.chen@university.edu",
+      "content_type": "fake",
+      "platform": "youtube",
+      "url": "https://youtube.com/watch?v=fake-news-video-abc123",
+      "urgency_level": "high",
+      "description": "Video with fake news about recent political events, using deepfake technology.",
+      "evidence": null,
+      "date_reported": "2025-08-31T02:00:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 6,
+    "fields": {
+      "reporter_name": "Emma Thompson",
+      "reporter_email": "emma.thompson@gmail.com",
+      "content_type": "misinformation",
+      "platform": "facebook",
+      "url": "https://facebook.com/groups/health-myths/posts/456789",
+      "urgency_level": "medium",
+      "description": "Post promoting dangerous home remedies as alternatives to medical treatment for serious conditions.",
+      "evidence": null,
+      "date_reported": "2025-08-30T10:00:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 7,
+    "fields": {
+      "reporter_name": "Frank Rodriguez",
+      "reporter_email": "f.rodriguez@email.com",
+      "content_type": "harassment",
+      "platform": "twitter",
+      "url": "https://twitter.com/trollaccount/status/234567890",
+      "urgency_level": "high",
+      "description": "Series of tweets doxxing a journalist and encouraging followers to visit their home address.",
+      "evidence": null,
+      "date_reported": "2025-08-30T22:00:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 8,
+    "fields": {
+      "reporter_name": "Grace Kim",
+      "reporter_email": "grace.kim@company.com",
+      "content_type": "spam",
+      "platform": "tiktok",
+      "url": "https://tiktok.com/@spambot123/video/987654321",
+      "urgency_level": "low",
+      "description": "Account posting repetitive content promoting cryptocurrency scams.",
+      "evidence": null,
+      "date_reported": "2025-08-29T07:00:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 9,
+    "fields": {
+      "reporter_name": "Henry Walsh",
+      "reporter_email": "henry.walsh@email.com",
+      "content_type": "hatespeech",
+      "platform": "other",
+      "url": "https://discord.com/channels/hate-group-server",
+      "urgency_level": "critical",
+      "description": "Discord server promoting white supremacist ideology and planning real-world activities.",
+      "evidence": null,
+      "date_reported": "2025-08-31T09:00:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 10,
+    "fields": {
+      "reporter_name": "Isabella Garcia",
+      "reporter_email": "isabella.garcia@email.com",
+      "content_type": "fake",
+      "platform": "whatsapp",
+      "url": "https://wa.me/fake-covid-cure-message",
+      "urgency_level": "high",
+      "description": "WhatsApp message chain spreading fake COVID-19 cure information.",
+      "evidence": null,
+      "date_reported": "2025-08-30T08:00:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 11,
+    "fields": {
+      "reporter_name": null,
+      "reporter_email": null,
+      "content_type": "news",
+      "platform": "youtube",
+      "url": "https://youtube.com/watch?v=fabricated-breaking-news",
+      "urgency_level": "critical",
+      "description": "Video presenting completely fabricated breaking news about a terrorist attack that never happened.",
+      "evidence": null,
+      "date_reported": "2025-08-31T09:30:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 12,
+    "fields": {
+      "reporter_name": "Jack Peterson",
+      "reporter_email": "jack.peterson@email.com",
+      "content_type": "misinformation",
+      "platform": "facebook",
+      "url": "https://facebook.com/climate-denial-group/posts/789123",
+      "urgency_level": "medium",
+      "description": "Post denying climate change with fabricated scientific data and fake expert testimonials.",
+      "evidence": null,
+      "date_reported": "2025-08-27T10:00:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 13,
+    "fields": {
+      "reporter_name": "Kelly Brown",
+      "reporter_email": "kelly.brown@activism.org",
+      "content_type": "harassment",
+      "platform": "tiktok",
+      "url": "https://tiktok.com/@cyberbully456/video/345678901",
+      "urgency_level": "medium",
+      "description": "Video mocking and encouraging harassment of teenagers based on their appearance.",
+      "evidence": null,
+      "date_reported": "2025-08-30T02:00:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 14,
+    "fields": {
+      "reporter_name": "Luis Morales",
+      "reporter_email": "luis.morales@email.com",
+      "content_type": "spam",
+      "platform": "twitter",
+      "url": "https://twitter.com/cryptoscam789/status/456789012",
+      "urgency_level": "low",
+      "description": "Bot account posting repetitive cryptocurrency investment scams.",
+      "evidence": null,
+      "date_reported": "2025-08-28T04:00:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 15,
+    "fields": {
+      "reporter_name": "Maria Santos",
+      "reporter_email": "maria.santos@email.com",
+      "content_type": "fake",
+      "platform": "facebook",
+      "url": "https://facebook.com/fake-celebrity-death/posts/234567",
+      "urgency_level": "medium",
+      "description": "Post falsely announcing the death of a living celebrity to drive traffic to malicious websites.",
+      "evidence": null,
+      "date_reported": "2025-08-29T09:00:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 16,
+    "fields": {
+      "reporter_name": "Nathan Lee",
+      "reporter_email": "nathan.lee@email.com",
+      "content_type": "hatespeech",
+      "platform": "youtube",
+      "url": "https://youtube.com/watch?v=religious-hate-video",
+      "urgency_level": "high",
+      "description": "Video promoting religious intolerance and calling for violence against specific faith communities.",
+      "evidence": null,
+      "date_reported": "2025-08-31T04:00:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 17,
+    "fields": {
+      "reporter_name": "Olivia Davis",
+      "reporter_email": "olivia.davis@school.edu",
+      "content_type": "harassment",
+      "platform": "whatsapp",
+      "url": "https://chat.whatsapp.com/student-bullying-group",
+      "urgency_level": "high",
+      "description": "WhatsApp group created specifically to coordinate bullying of a student, sharing personal information.",
+      "evidence": null,
+      "date_reported": "2025-08-31T06:00:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 18,
+    "fields": {
+      "reporter_name": "Paul Wilson",
+      "reporter_email": "paul.wilson@email.com",
+      "content_type": "other",
+      "platform": "other",
+      "url": "https://telegram.me/illegal-content-channel",
+      "urgency_level": "critical",
+      "description": "Telegram channel distributing illegal content and coordinating harmful activities.",
+      "evidence": null,
+      "date_reported": "2025-08-31T09:15:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 19,
+    "fields": {
+      "reporter_name": "Quinn Taylor",
+      "reporter_email": "quinn.taylor@email.com",
+      "content_type": "misinformation",
+      "platform": "tiktok",
+      "url": "https://tiktok.com/@healthmyths/video/678901234",
+      "urgency_level": "medium",
+      "description": "Video promoting dangerous weight loss methods and eating disorders as healthy lifestyle choices.",
+      "evidence": null,
+      "date_reported": "2025-08-30T00:00:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 20,
+    "fields": {
+      "reporter_name": "Rachel Green",
+      "reporter_email": "rachel.green@email.com",
+      "content_type": "spam",
+      "platform": "facebook",
+      "url": "https://facebook.com/get-rich-quick-scheme/posts/890123",
+      "urgency_level": "low",
+      "description": "Repeated posts about pyramid schemes and get-rich-quick scams targeting vulnerable individuals.",
+      "evidence": null,
+      "date_reported": "2025-08-26T10:00:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 21,
+    "fields": {
+      "reporter_name": "Steve Johnson",
+      "reporter_email": "steve.johnson@email.com",
+      "content_type": "fake",
+      "platform": "twitter",
+      "url": "https://twitter.com/fakenews123/status/567890123",
+      "urgency_level": "high",
+      "description": "Tweet with fabricated quote attributed to a government official about emergency measures.",
+      "evidence": null,
+      "date_reported": "2025-08-31T08:00:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 22,
+    "fields": {
+      "reporter_name": "Tina Anderson",
+      "reporter_email": "tina.anderson@email.com",
+      "content_type": "harassment",
+      "platform": "youtube",
+      "url": "https://youtube.com/watch?v=targeted-harassment-video",
+      "urgency_level": "medium",
+      "description": "Video specifically created to mock and humiliate an individual, encouraging viewers to join in harassment.",
+      "evidence": null,
+      "date_reported": "2025-08-30T07:00:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 23,
+    "fields": {
+      "reporter_name": "Victor Martinez",
+      "reporter_email": "victor.martinez@email.com",
+      "content_type": "news",
+      "platform": "facebook",
+      "url": "https://facebook.com/fake-disaster-news/posts/345678",
+      "urgency_level": "critical",
+      "description": "Post spreading false information about a natural disaster, causing panic and misinformation.",
+      "evidence": null,
+      "date_reported": "2025-08-31T08:30:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 24,
+    "fields": {
+      "reporter_name": "Wendy Clark",
+      "reporter_email": "wendy.clark@email.com",
+      "content_type": "hatespeech",
+      "platform": "tiktok",
+      "url": "https://tiktok.com/@hateaccount789/video/789012345",
+      "urgency_level": "high",
+      "description": "Video promoting gender-based violence and misogynistic rhetoric.",
+      "evidence": null,
+      "date_reported": "2025-08-31T03:00:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 25,
+    "fields": {
+      "reporter_name": null,
+      "reporter_email": "whistleblower@tempmail.com",
+      "content_type": "other",
+      "platform": "whatsapp",
+      "url": "https://chat.whatsapp.com/conspiracy-coordination",
+      "urgency_level": "medium",
+      "description": "WhatsApp group coordinating spread of conspiracy theories and organizing protests based on false information.",
+      "evidence": null,
+      "date_reported": "2025-08-29T03:00:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 26,
+    "fields": {
+      "reporter_name": "Dr. Sarah Mitchell",
+      "reporter_email": "sarah.mitchell@hospital.org",
+      "content_type": "misinformation",
+      "platform": "facebook",
+      "url": "https://facebook.com/groups/medical-myths/posts/987654",
+      "urgency_level": "critical",
+      "description": "Post claiming 5G towers cause cancer and COVID-19, with fake research citations. Viral post with 50K+ shares.",
+      "evidence": null,
+      "date_reported": "2025-08-31T01:15:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 27,
+    "fields": {
+      "reporter_name": "James Wilson",
+      "reporter_email": "j.wilson@factcheck.org",
+      "content_type": "misinformation",
+      "platform": "youtube",
+      "url": "https://youtube.com/watch?v=flat-earth-proof-123",
+      "urgency_level": "medium",
+      "description": "Video presenting flat earth theory as scientific fact, targeting educational content with misleading thumbnails.",
+      "evidence": null,
+      "date_reported": "2025-08-30T14:30:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 28,
+    "fields": {
+      "reporter_name": "Lisa Chen",
+      "reporter_email": "lisa.chen@university.edu",
+      "content_type": "misinformation",
+      "platform": "tiktok",
+      "url": "https://tiktok.com/@antivaxxer2024/video/456789012",
+      "urgency_level": "high",
+      "description": "TikTok video falsely claiming childhood vaccines contain microchips for government tracking, targeting parents.",
+      "evidence": null,
+      "date_reported": "2025-08-30T16:45:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 29,
+    "fields": {
+      "reporter_name": "Michael Rodriguez",
+      "reporter_email": "m.rodriguez@healthdept.gov",
+      "content_type": "misinformation",
+      "platform": "whatsapp",
+      "url": "https://chat.whatsapp.com/miracle-cure-group-789",
+      "urgency_level": "critical",
+      "description": "WhatsApp group promoting bleach as a cure for autism and cancer, with fake doctor testimonials.",
+      "evidence": null,
+      "date_reported": "2025-08-31T03:20:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 30,
+    "fields": {
+      "reporter_name": "Anna Kowalski",
+      "reporter_email": "anna.k@sciencejournal.com",
+      "content_type": "misinformation",
+      "platform": "twitter",
+      "url": "https://twitter.com/climateskeptic/status/123456789",
+      "urgency_level": "medium",
+      "description": "Thread denying human-caused climate change with fabricated NASA data and fake peer-reviewed studies.",
+      "evidence": null,
+      "date_reported": "2025-08-29T11:30:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 31,
+    "fields": {
+      "reporter_name": "Robert Thompson",
+      "reporter_email": "rob.thompson@medicalsociety.org",
+      "content_type": "misinformation",
+      "platform": "facebook",
+      "url": "https://facebook.com/natural-healing-lies/posts/654321",
+      "urgency_level": "high",
+      "description": "Post claiming essential oils can cure diabetes and replace insulin, with fake before/after medical reports.",
+      "evidence": null,
+      "date_reported": "2025-08-30T09:15:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 32,
+    "fields": {
+      "reporter_name": "Dr. Patricia Lee",
+      "reporter_email": "patricia.lee@psychiatry.org",
+      "content_type": "misinformation",
+      "platform": "youtube",
+      "url": "https://youtube.com/watch?v=mental-health-myths-456",
+      "urgency_level": "high",
+      "description": "Video claiming depression and anxiety are not real medical conditions, promoting dangerous 'mind over matter' approach.",
+      "evidence": null,
+      "date_reported": "2025-08-29T18:00:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 33,
+    "fields": {
+      "reporter_name": "Hassan Ahmed",
+      "reporter_email": "hassan.ahmed@factchecker.net",
+      "content_type": "misinformation",
+      "platform": "tiktok",
+      "url": "https://tiktok.com/@conspiracyguru/video/789123456",
+      "urgency_level": "critical",
+      "description": "Video promoting conspiracy theory that recent earthquake was caused by government weather control weapons.",
+      "evidence": null,
+      "date_reported": "2025-08-31T05:45:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 34,
+    "fields": {
+      "reporter_name": "Maria Gonzalez",
+      "reporter_email": "maria.gonzalez@nutrition.org",
+      "content_type": "misinformation",
+      "platform": "other",
+      "url": "https://telegram.me/raw-food-miracle-cure",
+      "urgency_level": "medium",
+      "description": "Telegram channel claiming raw meat diet can cure all diseases including cancer, targeting vulnerable health-seeking individuals.",
+      "evidence": null,
+      "date_reported": "2025-08-28T20:30:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 35,
+    "fields": {
+      "reporter_name": "Jennifer Park",
+      "reporter_email": "jennifer.park@election.gov",
+      "content_type": "misinformation",
+      "platform": "facebook",
+      "url": "https://facebook.com/election-fraud-claims/posts/246810",
+      "urgency_level": "critical",
+      "description": "Post spreading false claims about voting machine manipulation with fabricated 'evidence' and fake whistleblower accounts.",
+      "evidence": null,
+      "date_reported": "2025-08-30T21:00:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 36,
+    "fields": {
+      "reporter_name": "Alex Turner",
+      "reporter_email": "alex.turner@safeguard.org",
+      "content_type": "harassment",
+      "platform": "twitter",
+      "url": "https://twitter.com/cyberstalker99/status/678901234",
+      "urgency_level": "critical",
+      "description": "Account systematically stalking and threatening a minor, posting their school schedule and home address.",
+      "evidence": null,
+      "date_reported": "2025-08-31T07:30:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 37,
+    "fields": {
+      "reporter_name": "Dr. Michelle Roberts",
+      "reporter_email": "michelle.roberts@pediatrics.org",
+      "content_type": "misinformation",
+      "platform": "youtube",
+      "url": "https://youtube.com/watch?v=autism-vaccine-lies-789",
+      "urgency_level": "high",
+      "description": "Video claiming vaccines cause autism, featuring fake doctor testimonials and manipulated statistics to mislead parents.",
+      "evidence": null,
+      "date_reported": "2025-08-29T13:45:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 38,
+    "fields": {
+      "reporter_name": "Kevin Walsh",
+      "reporter_email": "kevin.walsh@antifraud.com",
+      "content_type": "spam",
+      "platform": "whatsapp",
+      "url": "https://chat.whatsapp.com/bitcoin-investment-scam-456",
+      "urgency_level": "medium",
+      "description": "WhatsApp group promoting fake cryptocurrency investment scheme targeting elderly users with promises of 500% returns.",
+      "evidence": null,
+      "date_reported": "2025-08-28T16:20:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 39,
+    "fields": {
+      "reporter_name": "Sandra Kim",
+      "reporter_email": "sandra.kim@victim.support",
+      "content_type": "hatespeech",
+      "platform": "tiktok",
+      "url": "https://tiktok.com/@extremist2024/video/123789456",
+      "urgency_level": "critical",
+      "description": "Video promoting Neo-Nazi ideology with coded language and symbols, attempting to recruit young viewers.",
+      "evidence": null,
+      "date_reported": "2025-08-31T04:15:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 40,
+    "fields": {
+      "reporter_name": "Thomas Anderson",
+      "reporter_email": "thomas.anderson@newsroom.com",
+      "content_type": "fake",
+      "platform": "facebook",
+      "url": "https://facebook.com/fake-breaking-news/posts/135792468",
+      "urgency_level": "critical",
+      "description": "Post with fake breaking news about celebrity death in car accident, using stolen photos and fabricated police reports.",
+      "evidence": null,
+      "date_reported": "2025-08-31T02:45:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 41,
+    "fields": {
+      "reporter_name": null,
+      "reporter_email": "concerned.parent@gmail.com",
+      "content_type": "harassment",
+      "platform": "other",
+      "url": "https://discord.gg/school-bullying-server",
+      "urgency_level": "high",
+      "description": "Discord server dedicated to organizing harassment campaigns against specific students, sharing private photos.",
+      "evidence": null,
+      "date_reported": "2025-08-30T19:30:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 42,
+    "fields": {
+      "reporter_name": "Rachel Martinez",
+      "reporter_email": "rachel.martinez@healthwatch.org",
+      "content_type": "misinformation",
+      "platform": "tiktok",
+      "url": "https://tiktok.com/@wellness_lies/video/987456123",
+      "urgency_level": "medium",
+      "description": "Video promoting drinking urine as cure for various diseases, targeting desperate patients with terminal illnesses.",
+      "evidence": null,
+      "date_reported": "2025-08-29T08:00:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 43,
+    "fields": {
+      "reporter_name": "Brandon Lee",
+      "reporter_email": "brandon.lee@cybersecurity.gov",
+      "content_type": "spam",
+      "platform": "twitter",
+      "url": "https://twitter.com/phishing_bot/status/456123789",
+      "urgency_level": "high",
+      "description": "Bot account posting fake bank security alerts to harvest login credentials from unsuspecting users.",
+      "evidence": null,
+      "date_reported": "2025-08-30T11:15:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 44,
+    "fields": {
+      "reporter_name": "Dr. Elena Petrov",
+      "reporter_email": "elena.petrov@psychology.edu",
+      "content_type": "misinformation",
+      "platform": "youtube",
+      "url": "https://youtube.com/watch?v=conversion-therapy-promotion",
+      "urgency_level": "critical",
+      "description": "Video promoting harmful conversion therapy practices, claiming LGBTQ+ identities are mental illnesses that can be 'cured'.",
+      "evidence": null,
+      "date_reported": "2025-08-30T15:20:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 45,
+    "fields": {
+      "reporter_name": "Marcus Johnson",
+      "reporter_email": "marcus.johnson@community.org",
+      "content_type": "hatespeech",
+      "platform": "facebook",
+      "url": "https://facebook.com/groups/hate-immigrants/posts/987654321",
+      "urgency_level": "high",
+      "description": "Post inciting violence against immigrant communities with dehumanizing language and calls for vigilante action.",
+      "evidence": null,
+      "date_reported": "2025-08-29T17:45:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 46,
+    "fields": {
+      "reporter_name": "Amy Chen",
+      "reporter_email": "amy.chen@teacher.edu",
+      "content_type": "harassment",
+      "platform": "tiktok",
+      "url": "https://tiktok.com/@school_threats/video/654987321",
+      "urgency_level": "critical",
+      "description": "Video containing veiled threats against a specific school and teachers, using coded language about 'cleaning up education'.",
+      "evidence": null,
+      "date_reported": "2025-08-31T06:45:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 47,
+    "fields": {
+      "reporter_name": "David Rodriguez",
+      "reporter_email": "david.rodriguez@financial.gov",
+      "content_type": "spam",
+      "platform": "whatsapp",
+      "url": "https://chat.whatsapp.com/loan-scam-urgent-123",
+      "urgency_level": "medium",
+      "description": "WhatsApp group offering instant loans without credit checks, collecting personal information for identity theft.",
+      "evidence": null,
+      "date_reported": "2025-08-28T14:30:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 48,
+    "fields": {
+      "reporter_name": "Lisa Thompson",
+      "reporter_email": "lisa.thompson@disaster.org",
+      "content_type": "fake",
+      "platform": "twitter",
+      "url": "https://twitter.com/fake_emergency/status/789456123",
+      "urgency_level": "critical",
+      "description": "Tweet falsely claiming major earthquake hit major city, causing panic and emergency resource misallocation.",
+      "evidence": null,
+      "date_reported": "2025-08-31T01:30:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 49,
+    "fields": {
+      "reporter_name": "Professor John Miller",
+      "reporter_email": "john.miller@university.edu",
+      "content_type": "misinformation",
+      "platform": "facebook",
+      "url": "https://facebook.com/anti-science-group/posts/456789123",
+      "urgency_level": "medium",
+      "description": "Post denying evolution with fake fossil 'evidence' and manipulated carbon dating results targeting students.",
+      "evidence": null,
+      "date_reported": "2025-08-27T10:15:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 50,
+    "fields": {
+      "reporter_name": "Sarah Wilson",
+      "reporter_email": "sarah.wilson@womenshelter.org",
+      "content_type": "hatespeech",
+      "platform": "other",
+      "url": "https://reddit.com/r/incel_extremism/posts/violence_advocacy",
+      "urgency_level": "critical",
+      "description": "Reddit post advocating for violence against women, sharing tactics for harassment and promoting dangerous ideologies.",
+      "evidence": null,
+      "date_reported": "2025-08-30T20:00:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 51,
+    "fields": {
+      "reporter_name": "Michael Chang",
+      "reporter_email": "michael.chang@consumer.protection",
+      "content_type": "spam",
+      "platform": "youtube",
+      "url": "https://youtube.com/watch?v=miracle-weight-loss-scam",
+      "urgency_level": "low",
+      "description": "Video advertising fake weight loss pills with before/after photos stolen from unrelated sources.",
+      "evidence": null,
+      "date_reported": "2025-08-26T12:45:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 52,
+    "fields": {
+      "reporter_name": "Dr. Angela Foster",
+      "reporter_email": "angela.foster@virology.org",
+      "content_type": "misinformation",
+      "platform": "whatsapp",
+      "url": "https://wa.me/virus-conspiracy-456789",
+      "urgency_level": "high",
+      "description": "WhatsApp message claiming COVID-19 was deliberately created in labs, citing fabricated documents and fake scientist quotes.",
+      "evidence": null,
+      "date_reported": "2025-08-29T19:30:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 53,
+    "fields": {
+      "reporter_name": "Carlos Mendez",
+      "reporter_email": "carlos.mendez@immigration.org",
+      "content_type": "hatespeech",
+      "platform": "tiktok",
+      "url": "https://tiktok.com/@border_extremist/video/321654987",
+      "urgency_level": "high",
+      "description": "Video dehumanizing asylum seekers and promoting violence at border crossings with dangerous misinformation.",
+      "evidence": null,
+      "date_reported": "2025-08-30T13:20:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 54,
+    "fields": {
+      "reporter_name": "Jennifer Adams",
+      "reporter_email": "jennifer.adams@school.district",
+      "content_type": "harassment",
+      "platform": "facebook",
+      "url": "https://facebook.com/parent-bullying-group/posts/159753486",
+      "urgency_level": "medium",
+      "description": "Facebook group where parents coordinate harassment of teachers and school staff, sharing personal information.",
+      "evidence": null,
+      "date_reported": "2025-08-28T09:45:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 55,
+    "fields": {
+      "reporter_name": "Robert Kim",
+      "reporter_email": "robert.kim@tech.company",
+      "content_type": "fake",
+      "platform": "twitter",
+      "url": "https://twitter.com/deepfake_news/status/852963741",
+      "urgency_level": "critical",
+      "description": "Tweet with deepfake video of political figure making inflammatory statements that could incite violence.",
+      "evidence": null,
+      "date_reported": "2025-08-31T03:15:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 56,
+    "fields": {
+      "reporter_name": "Dr. Patricia Wong",
+      "reporter_email": "patricia.wong@pharmacy.org",
+      "content_type": "misinformation",
+      "platform": "youtube",
+      "url": "https://youtube.com/watch?v=dangerous-home-remedies",
+      "urgency_level": "high",
+      "description": "Video promoting household bleach as treatment for children with developmental disabilities, extremely dangerous advice.",
+      "evidence": null,
+      "date_reported": "2025-08-30T07:30:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 57,
+    "fields": {
+      "reporter_name": "Mark Stevens",
+      "reporter_email": "mark.stevens@senior.advocacy",
+      "content_type": "spam",
+      "platform": "facebook",
+      "url": "https://facebook.com/senior-scams/posts/753951486",
+      "urgency_level": "medium",
+      "description": "Post targeting elderly users with fake social security benefit claims requiring personal information disclosure.",
+      "evidence": null,
+      "date_reported": "2025-08-27T15:20:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 58,
+    "fields": {
+      "reporter_name": "Hannah Price",
+      "reporter_email": "hannah.price@lgbtq.center",
+      "content_type": "hatespeech",
+      "platform": "other",
+      "url": "https://parler.com/extremist-lgbt-hate/post-789456",
+      "urgency_level": "critical",
+      "description": "Post calling for violence against LGBTQ+ youth and promoting harmful conversion practices with specific targets named.",
+      "evidence": null,
+      "date_reported": "2025-08-30T22:15:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 59,
+    "fields": {
+      "reporter_name": "Tony Martinez",
+      "reporter_email": "tony.martinez@workplace.safety",
+      "content_type": "harassment",
+      "platform": "whatsapp",
+      "url": "https://chat.whatsapp.com/workplace-mobbing-456",
+      "urgency_level": "high",
+      "description": "WhatsApp group coordinating workplace harassment campaign against employee who reported safety violations.",
+      "evidence": null,
+      "date_reported": "2025-08-29T12:30:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 60,
+    "fields": {
+      "reporter_name": "Dr. Emily Clark",
+      "reporter_email": "emily.clark@mental.health",
+      "content_type": "misinformation",
+      "platform": "tiktok",
+      "url": "https://tiktok.com/@fake_therapy/video/741852963",
+      "urgency_level": "high",
+      "description": "Video promoting dangerous DIY lobotomy techniques as treatment for depression, targeting vulnerable individuals.",
+      "evidence": null,
+      "date_reported": "2025-08-30T18:45:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 61,
+    "fields": {
+      "reporter_name": "James Parker",
+      "reporter_email": "james.parker@election.watch",
+      "content_type": "news",
+      "platform": "facebook",
+      "url": "https://facebook.com/false-election-results/posts/963852741",
+      "urgency_level": "critical",
+      "description": "Post announcing fake election results hours before polls close, attempting to suppress voter turnout.",
+      "evidence": null,
+      "date_reported": "2025-08-30T06:00:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 62,
+    "fields": {
+      "reporter_name": "Dr. Maria Santos",
+      "reporter_email": "maria.santos@infectious.disease",
+      "content_type": "misinformation",
+      "platform": "twitter",
+      "url": "https://twitter.com/antivax_doctor/status/159357486",
+      "urgency_level": "critical",
+      "description": "Thread by fake doctor account promoting ivermectin as COVID cure while discouraging proven treatments.",
+      "evidence": null,
+      "date_reported": "2025-08-31T05:20:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 63,
+    "fields": {
+      "reporter_name": "Linda Rodriguez",
+      "reporter_email": "linda.rodriguez@victim.services",
+      "content_type": "harassment",
+      "platform": "youtube",
+      "url": "https://youtube.com/watch?v=revenge-doxxing-video",
+      "urgency_level": "critical",
+      "description": "Video doxxing domestic violence survivor and her new location after escaping abusive relationship.",
+      "evidence": null,
+      "date_reported": "2025-08-31T08:15:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 64,
+    "fields": {
+      "reporter_name": "Peter Johnson",
+      "reporter_email": "peter.johnson@fraud.detection",
+      "content_type": "spam",
+      "platform": "other",
+      "url": "https://telegram.me/romance-scam-network",
+      "urgency_level": "medium",
+      "description": "Telegram channel coordinating romance scams targeting lonely elderly individuals for financial exploitation.",
+      "evidence": null,
+      "date_reported": "2025-08-28T11:00:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 65,
+    "fields": {
+      "reporter_name": "Dr. Kevin Lee",
+      "reporter_email": "kevin.lee@cancer.research",
+      "content_type": "misinformation",
+      "platform": "whatsapp",
+      "url": "https://wa.me/cancer-cure-conspiracy-789",
+      "urgency_level": "high",
+      "description": "WhatsApp message claiming pharmaceutical companies hide cancer cures, promoting dangerous alternative treatments.",
+      "evidence": null,
+      "date_reported": "2025-08-29T16:40:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 66,
+    "fields": {
+      "reporter_name": "Susan Brown",
+      "reporter_email": "susan.brown@religious.tolerance",
+      "content_type": "hatespeech",
+      "platform": "facebook",
+      "url": "https://facebook.com/religious-extremism/posts/147258369",
+      "urgency_level": "high",
+      "description": "Post promoting religious violence against minority faith communities with specific location targeting.",
+      "evidence": null,
+      "date_reported": "2025-08-30T14:50:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 67,
+    "fields": {
+      "reporter_name": "Alex Murphy",
+      "reporter_email": "alex.murphy@sports.integrity",
+      "content_type": "fake",
+      "platform": "tiktok",
+      "url": "https://tiktok.com/@sports_faker/video/258147369",
+      "urgency_level": "medium",
+      "description": "Video with fabricated sports betting tips claiming inside information, targeting gambling-addicted individuals.",
+      "evidence": null,
+      "date_reported": "2025-08-28T17:25:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 68,
+    "fields": {
+      "reporter_name": "Diana Foster",
+      "reporter_email": "diana.foster@child.protection",
+      "content_type": "harassment",
+      "platform": "twitter",
+      "url": "https://twitter.com/predator_network/status/369258147",
+      "urgency_level": "critical",
+      "description": "Account coordinating online predatory behavior targeting minors, sharing grooming techniques and victim identification.",
+      "evidence": null,
+      "date_reported": "2025-08-31T09:45:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 69,
+    "fields": {
+      "reporter_name": "Richard Davis",
+      "reporter_email": "richard.davis@financial.crimes",
+      "content_type": "spam",
+      "platform": "youtube",
+      "url": "https://youtube.com/watch?v=ponzi-scheme-promotion",
+      "urgency_level": "high",
+      "description": "Video promoting multi-level marketing pyramid scheme as legitimate business opportunity, targeting unemployed individuals.",
+      "evidence": null,
+      "date_reported": "2025-08-29T21:10:00Z"
+    }
+  },
+  {
+    "model": "reportsuspeciouscontent.suspiciouscontentreport",
+    "pk": 70,
+    "fields": {
+      "reporter_name": "Dr. Rachel Green",
+      "reporter_email": "rachel.green@nutrition.science",
+      "content_type": "misinformation",
+      "platform": "facebook",
+      "url": "https://facebook.com/eating-disorder-promotion/posts/789456123",
+      "urgency_level": "critical",
+      "description": "Post promoting extreme fasting and starvation as healthy lifestyle, targeting teens with eating disorder vulnerability.",
+      "evidence": null,
+      "date_reported": "2025-08-30T12:30:00Z"
+    }
+  }
+]

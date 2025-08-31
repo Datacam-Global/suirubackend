@@ -35,3 +35,91 @@ class AnalysisSerializer(serializers.Serializer):
         return value.strip()
 
 
+class DateRangeSerializer(serializers.Serializer):
+    start_date = serializers.DateTimeField()
+    end_date = serializers.DateTimeField()
+
+
+class FiltersSerializer(serializers.Serializer):
+    platforms = serializers.ListField(
+        child=serializers.CharField(),
+        required=False,
+        default=list
+    )
+    severity_levels = serializers.ListField(
+        child=serializers.CharField(),
+        required=False,
+        default=list
+    )
+    content_types = serializers.ListField(
+        child=serializers.CharField(),
+        required=False,
+        default=list
+    )
+    locations = serializers.ListField(
+        child=serializers.CharField(),
+        required=False,
+        default=list
+    )
+
+
+class DashboardReportRequestSerializer(serializers.Serializer):
+    REPORT_TYPE_CHOICES = [
+        ('daily', 'Daily'),
+        ('weekly', 'Weekly'),
+        ('monthly', 'Monthly'),
+        ('custom', 'Custom'),
+    ]
+
+    report_type = serializers.ChoiceField(
+        choices=REPORT_TYPE_CHOICES,
+        default='daily'
+    )
+    date_range = DateRangeSerializer(required=False)
+    filters = FiltersSerializer(required=False)
+
+
+class PlatformBreakdownSerializer(serializers.Serializer):
+    platform = serializers.CharField()
+    total_posts = serializers.IntegerField()
+    hate_speech = serializers.IntegerField()
+    misinformation = serializers.IntegerField()
+    safe = serializers.IntegerField()
+
+
+class SeverityDistributionSerializer(serializers.Serializer):
+    severity = serializers.CharField()
+    count = serializers.IntegerField()
+    percentage = serializers.FloatField()
+
+
+class TopKeywordSerializer(serializers.Serializer):
+    keyword = serializers.CharField()
+    frequency = serializers.IntegerField()
+    severity = serializers.CharField()
+
+
+class LocationInsightSerializer(serializers.Serializer):
+    location = serializers.CharField()
+    total_posts = serializers.IntegerField()
+    risk_level = serializers.CharField()
+    common_issues = serializers.ListField(child=serializers.CharField())
+
+
+class TrendSerializer(serializers.Serializer):
+    date = serializers.DateField()
+    hate_speech_count = serializers.IntegerField()
+    misinformation_count = serializers.IntegerField()
+    average_risk_score = serializers.FloatField()
+
+
+class DashboardReportSerializer(serializers.Serializer):
+    report_id = serializers.CharField()
+    generated_at = serializers.DateTimeField()
+    date_range = DateRangeSerializer()
+    summary = serializers.DictField()
+    platform_breakdown = PlatformBreakdownSerializer(many=True)
+    severity_distribution = SeverityDistributionSerializer(many=True)
+    top_keywords = TopKeywordSerializer(many=True)
+    location_insights = LocationInsightSerializer(many=True)
+    trends = TrendSerializer(many=True)
