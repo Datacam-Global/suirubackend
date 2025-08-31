@@ -118,3 +118,38 @@ class ContentModelAnalysisSummarySerializer(serializers.ModelSerializer):
             'confidence', 'severity', 'created_at'
         )
         read_only_fields = ('id', 'created_at')
+
+class ContentModelAnalysisSummarySerializer(serializers.Serializer):
+    """
+    Serializer for summarizing content model analysis results
+    """
+    total_posts = serializers.IntegerField()
+    analyzed_posts = serializers.IntegerField()
+    suspicious_posts = serializers.IntegerField()
+    safe_posts = serializers.IntegerField()
+    analysis_date = serializers.DateTimeField()
+
+class PasswordResetRequestSerializer(serializers.Serializer):
+    """
+    Serializer for password reset request
+    """
+    email = serializers.EmailField(help_text="User's email address")
+
+class PasswordResetSerializer(serializers.Serializer):
+    """
+    Serializer for password reset
+    """
+    token = serializers.CharField(help_text="Password reset token")
+    password = serializers.CharField(help_text="New password", min_length=8)
+    password_confirm = serializers.CharField(help_text="Password confirmation")
+
+    def validate(self, attrs):
+        if attrs['password'] != attrs['password_confirm']:
+            raise serializers.ValidationError({"password": "Password fields didn't match."})
+        return attrs
+
+class EmailVerificationSerializer(serializers.Serializer):
+    """
+    Serializer for email verification
+    """
+    token = serializers.CharField(help_text="Email verification token")

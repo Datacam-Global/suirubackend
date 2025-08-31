@@ -9,7 +9,12 @@ from rest_framework.decorators import api_view, permission_classes
 from django.utils import timezone
 from datetime import timedelta
 import jwt
-from .serializers import UserSerializer
+from .serializers import (
+    UserSerializer, 
+    PasswordResetRequestSerializer, 
+    PasswordResetSerializer, 
+    EmailVerificationSerializer
+)
 
 def generate_token(user, token_type='email_verification', expiry=24):
     """Generate a JWT token for email verification or password reset"""
@@ -41,6 +46,7 @@ class RequestPasswordResetView(generics.GenericAPIView):
     - 200: Password reset email sent
     - 400: Invalid email
     """
+    serializer_class = PasswordResetRequestSerializer
     permission_classes = (AllowAny,)
 
     def post(self, request):
@@ -80,6 +86,7 @@ class ResetPasswordView(generics.GenericAPIView):
     - 200: Password reset successful
     - 400: Invalid token or password
     """
+    serializer_class = PasswordResetSerializer
     permission_classes = (AllowAny,)
 
     def post(self, request):
@@ -116,6 +123,7 @@ class VerifyEmailView(generics.GenericAPIView):
     - 200: Email verified successfully
     - 400: Invalid token
     """
+    serializer_class = EmailVerificationSerializer
     permission_classes = (AllowAny,)
 
     def post(self, request):
