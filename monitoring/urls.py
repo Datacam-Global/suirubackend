@@ -47,7 +47,9 @@ urlpatterns = [
     path('facebook/clear-saved-posts/', views.facebook_clear_saved_posts, name='facebook_clear_saved_posts'),
     # Gemini endpoint
     path('gemini/ask/', views.gemini_ask, name='gemini_ask'),
-    # Azure OpenAI endpoint
+    # OpenAI endpoint (primary)
+    path('openai/ask/', views.openai_ask, name='openai_ask'),
+    # Azure OpenAI endpoint (deprecated - keeping for backward compatibility)
     path('azure-openai/ask/', views.azure_openai_ask, name='azure_openai_ask'),
     # Hate Speech Analysis endpoint
     path('hate-speech/analyze/', views.hate_speech_analyze, name='hate_speech_analyze'),
