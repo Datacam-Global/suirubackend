@@ -1,5 +1,9 @@
 venv
 .env
+<<<<<<< HEAD
+=======
+.env.backup
+>>>>>>> 148abe60e728cf500040bff29109b59623c02540
 env
 __pycache__/
 *.py[cod]

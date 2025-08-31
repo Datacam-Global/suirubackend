@@ -792,6 +792,57 @@ def gemini_ask(request):
 
 @api_view(['POST'])
 @permission_classes([permissions.AllowAny])
+<<<<<<< HEAD
+=======
+def openai_ask(request):
+    """
+    Send a question to OpenAI GPT and return the response.
+    Only provides information related to Cameroon.
+    Parameters:
+    - question: string (required)
+    Returns:
+    - 200: OpenAI GPT response
+    - 400: Invalid input or OpenAI error
+    """
+    question = request.data.get('question')
+    if not question:
+        return Response({'error': 'No question provided'}, status=status.HTTP_400_BAD_REQUEST)
+
+    api_key = getattr(settings, 'OPENAI_API_KEY', None)
+    model = getattr(settings, 'OPENAI_MODEL', 'gpt-3.5-turbo')
+    
+    if not api_key:
+        return Response({'error': 'OpenAI configuration missing'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    try:
+        # Use OpenAI client for chat completions
+        client = openai.OpenAI(api_key=api_key)
+        
+        system_prompt = (
+            "You are an assistant that only provides information related to Cameroon. "
+            "If the question is not about Cameroon, politely refuse to answer. "
+            "If the question is ambiguous, ask the user to clarify how it relates to Cameroon. "
+            "Never provide information about other countries, regions, or topics unless it is directly connected to Cameroon. "
+            "Always keep answers concise, factual, and relevant to Cameroon."
+        )
+        messages = [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": question}
+        ]
+        response = client.chat.completions.create(
+            model=model,
+            messages=messages,
+            temperature=0.7,
+            max_tokens=512
+        )
+        answer = response.choices[0].message.content
+        return Response({'question': question, 'answer': answer}, status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+@permission_classes([permissions.AllowAny])
+>>>>>>> 148abe60e728cf500040bff29109b59623c02540
 def azure_openai_ask(request):
     """
     Send a question to Azure OpenAI and return the response.
