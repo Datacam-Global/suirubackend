@@ -203,6 +203,8 @@ class UserViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
+        if getattr(self, 'swagger_fake_view', False):
+            return User.objects.none()
         return User.objects.filter(id=self.request.user.id)
 
 class AlertViewSet(viewsets.ModelViewSet):
@@ -232,6 +234,8 @@ class AlertViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
+        if getattr(self, 'swagger_fake_view', False):
+            return Alert.objects.none()
         return Alert.objects.filter(assigned_to=self.request.user)
 
     @action(detail=True, methods=['post'])
@@ -281,10 +285,13 @@ class ReportViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
+        if getattr(self, 'swagger_fake_view', False):
+            return Report.objects.none()
         return Report.objects.filter(created_by=self.request.user)
 
     def perform_create(self, serializer):
-        serializer.save(created_by=self.request.user)
+        if not getattr(self, 'swagger_fake_view', False):
+            serializer.save(created_by=self.request.user)
 
 class ContentAnalysisViewSet(viewsets.ModelViewSet):
     """
@@ -429,10 +436,13 @@ class ChatMessageViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
+        if getattr(self, 'swagger_fake_view', False):
+            return ChatMessage.objects.none()
         return ChatMessage.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        if not getattr(self, 'swagger_fake_view', False):
+            serializer.save(user=self.request.user)
 
     @action(detail=False, methods=['post'])
     def send_message(self, request):
@@ -447,7 +457,7 @@ class ChatMessageViewSet(viewsets.ModelViewSet):
         - 400: Invalid message provided
         """
         message = request.data.get('message')
-        if message:
+        if message and not getattr(self, 'swagger_fake_view', False):
             chat_message = ChatMessage.objects.create(
                 user=self.request.user,
                 message=message,
@@ -492,10 +502,13 @@ class UserSettingsViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
+        if getattr(self, 'swagger_fake_view', False):
+            return UserSettings.objects.none()
         return UserSettings.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        if not getattr(self, 'swagger_fake_view', False):
+            serializer.save(user=self.request.user)
 
 class FacebookPostViewSet(viewsets.ModelViewSet):
     """
