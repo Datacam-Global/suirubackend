@@ -202,9 +202,43 @@ SIMPLE_JWT = {
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000", 
     "https://sui-ru.com",
+    "https://sui-ru.netlify.app",
 ]
 
+# Additional CORS settings for better security and functionality
 CORS_ALLOW_CREDENTIALS = True
+
+# Allow specific headers
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
+
+# Allow specific methods
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
+
+# Allow credentials (cookies, authorization headers)
+CORS_ALLOW_CREDENTIALS = True
+
+# Expose headers to the client
+CORS_EXPOSE_HEADERS = [
+    'content-type',
+    'content-disposition',
+]
 
 # Media files
 MEDIA_URL = '/media/'
