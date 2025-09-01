@@ -203,6 +203,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000", 
     "https://sui-ru.com",
     "https://sui-ru.netlify.app",
+    "http://sui-ru.netlify.app",
 ]
 
 # Additional CORS settings for better security and functionality
