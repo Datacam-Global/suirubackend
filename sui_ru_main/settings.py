@@ -204,6 +204,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://sui-ru.com",
     "https://sui-ru.netlify.app",
     "http://sui-ru.netlify.app",
+    "https://suirubackend.onrender.com",
 ]
 
 # Additional CORS settings for better security and functionality
@@ -220,6 +221,8 @@ CORS_ALLOW_HEADERS = [
     'user-agent',
     'x-csrftoken',
     'x-requested-with',
+    'cache-control',
+    'pragma',
 ]
 
 # Allow specific methods
@@ -239,6 +242,18 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_EXPOSE_HEADERS = [
     'content-type',
     'content-disposition',
+    'access-control-allow-origin',
+    'access-control-allow-credentials',
+]
+
+# Additional CORS settings for production
+CORS_PREFLIGHT_MAX_AGE = 86400  # 24 hours
+
+# Trusted origins for CSRF (if using CSRF protection)
+CSRF_TRUSTED_ORIGINS = [
+    "https://sui-ru.netlify.app",
+    "http://sui-ru.netlify.app",
+    "https://suirubackend.onrender.com",
 ]
 
 # Media files
